@@ -9,3 +9,11 @@ void gatewayClass::putData(String data) {
 String gatewayClass::getData() {
     return _data;
 }
+
+bool gatewayClass::isRequestingData() {
+    return requestData;
+}
+
+void gatewayClass::doneRequest() {
+    requestData = false;
+}

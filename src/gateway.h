@@ -11,6 +11,8 @@ class gatewayClass {
     public:
     void putData(String data);
     String getData();
+    bool isRequestingData();
+    void doneRequest();
 
     class toLoRaClass {
         private:
@@ -35,6 +37,26 @@ class gatewayClass {
         String readMessage();
         void loop();
     }; toLoRaClass toNode;
+
+    class hostClass {
+        private:
+        String datanya = "0";
+
+        public:
+        void initHost();
+        void connectWiFi(const char* id, const char* pw);
+        IPAddress getHostAddress();
+        void sendData(String data);
+        void setMQTTBroker(const char* mqtt_broker, uint16_t mqtt_port);
+        void setMQTTCallback(std::function<void(char*, uint8_t*, unsigned int)> callback);
+        bool connectMQTT(const char *mqtt_id, const char *mqtt_user, const char *mqtt_pass);
+        bool connectMQTT(const char *mqtt_id);
+        void subscribeMQTT(const char *topic);
+        void publishMQTT(const char *topic, const char* payload);
+        bool isMQTTConnected();
+        void loopMQTT();
+    }; hostClass host;
+
 };
 
 extern gatewayClass gateway;
